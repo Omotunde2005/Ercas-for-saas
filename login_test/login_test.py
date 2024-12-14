@@ -45,6 +45,11 @@ def index() -> rx.Component:
         rx.logo()
     )
 
+@rx.page(route="/logout", on_load=AppState.logout)
+def logout() -> rx.Component:
+    return rx.container("Logged out")
+
+
 
 app = rx.App()
 app.add_page(index, route="/")
