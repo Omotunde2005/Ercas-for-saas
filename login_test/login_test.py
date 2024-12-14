@@ -17,11 +17,11 @@ def index() -> rx.Component:
                 size="5",
             ),
             rx.cond(
-                not AppState.logged_in,
+                ~ AppState.logged_in,
                 rx.hstack(
                     rx.button("Register", on_click=rx.redirect("/register")),
                     rx.button("Login", on_click=rx.redirect("/login")),
-                    spacing=3
+                    spacing="3"
                 )
             ),
             spacing="5",
@@ -30,7 +30,7 @@ def index() -> rx.Component:
         ),
         rx.section(
             rx.center(
-                rx.vsatck(
+                rx.vstack(
                     rx.text("Checkout the available plans"),
                     rx.button("Pricing", on_click=rx.redirect("/pricing")),
                     align="center"

@@ -114,3 +114,13 @@ def pricing_page() -> rx.Component:
             padding="10px"
         )
     )
+
+def redirect_page() -> rx.Component:
+    rx.container(
+        rx.vstack(
+            rx.icon(),
+            "Your payment has been verified",
+            rx.button("Proceed to dashboard"),
+            align="center"
+        )
+    )

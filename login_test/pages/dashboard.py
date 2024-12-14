@@ -1,5 +1,5 @@
 import reflex as rx
-
+from login_test.state import AppState
 
 def sidebar_item(
     text: str, icon: str, href: str
@@ -31,7 +31,7 @@ def sidebar_items() -> rx.Component:
     return rx.vstack(
         sidebar_item("Home", "airplay", "/"),
         sidebar_item("Settings", "settings", "/settings"),
-        sidebar_item("Upgrade plan", "", "/pricing"),
+        sidebar_item("Upgrade plan", "align_center_vertical", "/pricing"),
         # rx.cond(
         #     forms_state.CreateBoardForm.can_create_board,
         #     sidebar_item("Create Board", "badge-plus", "/create/board")
@@ -81,7 +81,7 @@ def dashboard() -> rx.Component:
         sidebar(),
         rx.section(
             rx.text(
-                f'Welcome Rilwan!',
+                f'Welcome {AppState.user.username}!',
                 size="6"
             ),
             padding="30px"

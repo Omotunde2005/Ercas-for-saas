@@ -17,7 +17,7 @@ class AuthState(State):
     def hash_password(self) -> str:
         return PWD_CONTEXT.hash(self.password)
 
-    def verify_password(self, hashed_password) -> str:
+    def verify_password(self, hashed_password) -> bool:
         return PWD_CONTEXT.verify(self.password, hashed_password)
 
     def signup(self):
@@ -27,11 +27,12 @@ class AuthState(State):
                 return rx.window_alert("User already exists.")
             hashed_password = self.hash_password()
             self.user = User(email=self.email, password=hashed_password, username=self.username, created_at=datetime.datetime.now())
-            print(self.user)
             session.add(self.user)
             session.expire_on_commit = False
             session.commit()
-            self.username and self.password and self.email =  " "
+            self.username = " "
+            self.password = " "
+            self.email =  " "
             return rx.redirect("/dashboard")
 
     def login(self):
@@ -42,6 +43,12 @@ class AuthState(State):
             ).first()
             if user and self.verify_password(user.password):
                 self.user = user
+                self.username = " "
+                self.password = " "
+                self.email =  " "
                 return rx.redirect("/dashboard")
             else:
+                self.username = " "
+                self.password = " "
+                self.email =  " "
                 return rx.window_alert("Invalid email or password.")
