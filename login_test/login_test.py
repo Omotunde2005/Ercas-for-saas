@@ -12,14 +12,17 @@ def index() -> rx.Component:
         rx.vstack(
             rx.heading("Welcome to ErcasPay for Saas!", size="9"),
             rx.text(
-                "Get the complete template here ",
+                "Launch your app in days not months",
                 rx.code(f"{config.app_name}/{config.app_name}.py"),
                 size="5",
             ),
-            rx.hstack(
-                rx.button("Register", on_click=rx.redirect("/register")),
-                rx.button("Login", on_click=rx.redirect("/login")),
-                spacing=3
+            rx.cond(
+                not AppState.logged_in,
+                rx.hstack(
+                    rx.button("Register", on_click=rx.redirect("/register")),
+                    rx.button("Login", on_click=rx.redirect("/login")),
+                    spacing=3
+                )
             ),
             spacing="5",
             justify="center",

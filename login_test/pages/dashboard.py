@@ -31,11 +31,12 @@ def sidebar_items() -> rx.Component:
     return rx.vstack(
         sidebar_item("Home", "airplay", "/"),
         sidebar_item("Settings", "settings", "/settings"),
+        sidebar_item("Upgrade plan", "", "/pricing"),
         # rx.cond(
         #     forms_state.CreateBoardForm.can_create_board,
         #     sidebar_item("Create Board", "badge-plus", "/create/board")
         # ),
-        sidebar_item("Sign Out", "circle-power", "/logout"),
+        sidebar_item("Log out", "circle-power", "/logout"),
         spacing="1",
         width="100%",
     )

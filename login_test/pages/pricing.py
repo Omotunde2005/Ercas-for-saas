@@ -1,4 +1,5 @@
 import reflex as rx
+from login_test.state import AppState
 
 def feature_item(text: str) -> rx.Component:
     return rx.hstack(
@@ -83,6 +84,7 @@ def pricing_card(plan, description, price, features_list) -> rx.Component:
             variant="solid",
             width="100%",
             color_scheme="blue",
+            on_click=AppState.handle_payment
         ),
         spacing="6",
         border=f"1.5px solid {rx.color('gray', 5)}",
