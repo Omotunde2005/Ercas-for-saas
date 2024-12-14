@@ -9,29 +9,27 @@ class AuthState(State):
 
     username: str
     password: str
-    confirm_password: str
+    email: str
 
     def signup(self):
         """Sign up a user."""
         with rx.session() as session:
-            if self.password != self.confirm_password:
-                return rx.window_alert("Passwords do not match.")
-            if session.exec(select(User).where(User.username == self.username)).first():
-                return rx.window_alert("Username already exists.")
-            self.user = User(username=self.username, password=self.password)
+            if session.exec(select(User).where(User.email == self.email)).first():
+                return rx.window_alert("User already exists.")
+            self.user = User(email=self.email, password=self.password)
             session.add(self.user)
             session.expire_on_commit = False
             session.commit()
-            return rx.redirect("/")
+            return rx.redirect("/dashboard")
 
     def login(self):
         """Log in a user."""
         with rx.session() as session:
             user = session.exec(
-                select(User).where(User.username == self.username)
+                select(User).where(User.email == self.email)
             ).first()
             if user and user.password == self.password:
                 self.user = user
-                return rx.redirect("/")
+                return rx.redirect("/dashboard")
             else:
-                return rx.window_alert("Invalid username or password.")
+                return rx.window_alert("Invalid email or password.")
