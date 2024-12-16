@@ -8,6 +8,7 @@ class State(rx.State):
 
     user: Optional[User] = None
 
+    @rx.event
     def logout(self):
         """Log out a user."""
         self.reset()
@@ -23,6 +24,7 @@ class State(rx.State):
         """Check if a user is logged in."""
         return self.user is not None
     
+    @rx.event
     def check_auth(self):
         """ Check if a user is authorized to access a route """
         if not self.logged_in:
