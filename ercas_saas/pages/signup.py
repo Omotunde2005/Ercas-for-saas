@@ -119,9 +119,9 @@ def signup() -> rx.Component:
                         max_width="28em",
                         size="4",
                         width="100%",
-                    ),
-                    on_submit=AuthState.signup
-                )
+                    )
+                ),
+                on_submit=AuthState.signup
             )
         )
     )

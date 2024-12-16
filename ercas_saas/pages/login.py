@@ -93,9 +93,9 @@ def login() -> rx.Component:
                         max_width="28em",
                         size="4",
                         width="100%",
-                    ),
-                    on_submit=AuthState.login
-                )
+                    )
+                ),
+                on_submit=AuthState.login
             )
         ),
         padding="10px"
