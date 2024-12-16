@@ -27,7 +27,7 @@ class User(rx.Model, table=True):
         )
     )
 
-    # One-to-one relationship with the Subscription table
+    # One-to-many relationship with the Subscription table
     subscriptions: List["Subscription"] = Relationship(back_populates="user")
 
 
@@ -57,5 +57,5 @@ class Subscription(rx.Model, table=True):
 
     ref_number: str = Field(nullable=False)
 
-    user: Optional[User] = Relationship(back_populates="subscriptions")
-    user_id: int = Field(foreign_key="user.id")
+    user_id: int | None = Field(default=None, foreign_key="user.id")
+    user: User | None = Relationship(back_populates="subscriptions")

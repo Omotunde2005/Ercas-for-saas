@@ -24,5 +24,6 @@ class State(rx.State):
         return self.user is not None
     
     def check_auth(self):
+        """ Check if a user is authorized to access a route """
         if not self.logged_in:
             return rx.redirect("/login")

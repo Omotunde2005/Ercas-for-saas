@@ -1,8 +1,4 @@
-from urllib.parse import urljoin
-from login_test.ercas_api import ErcasPayClient
-from dotenv import load_dotenv 
-import os
-
+from ercas_saas.ercas_api import ErcasPayClient
 
 client = ErcasPayClient()
 payload = {
@@ -14,10 +10,9 @@ payload = {
     "description":"a test payment"
 }
 
-# response = client.initiate_payment(
-#     payload
-# )
+response = client.initiate_payment(
+    payload
+)
 
 
-#print(response)
-print(client.token)
+print(response)

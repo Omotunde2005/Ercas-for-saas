@@ -1,5 +1,7 @@
 import reflex as rx
-from login_test.state import AppState
+from ercas_saas.state import AppState
+
+
 
 def sidebar_item(
     text: str, icon: str, href: str
@@ -28,14 +30,11 @@ def sidebar_item(
 
 
 def sidebar_items() -> rx.Component:
+    """All the disebar items/links"""
     return rx.vstack(
         sidebar_item("Home", "airplay", "/"),
         sidebar_item("Settings", "settings", "/settings"),
         sidebar_item("Upgrade plan", "align_center_vertical", "/pricing"),
-        # rx.cond(
-        #     forms_state.CreateBoardForm.can_create_board,
-        #     sidebar_item("Create Board", "badge-plus", "/create/board")
-        # ),
         sidebar_item("Log out", "circle-power", "/logout"),
         spacing="1",
         width="100%",
@@ -43,6 +42,7 @@ def sidebar_items() -> rx.Component:
 
 
 def sidebar() -> rx.Component:
+    """Side bar component in the dashboard"""
     return rx.box(
         rx.drawer.root(
             rx.drawer.trigger(
@@ -76,6 +76,8 @@ def sidebar() -> rx.Component:
         padding="1em"
     )
 
+
+# The user dashboard route
 @rx.page(route="/dashboard", on_load=AppState.check_auth)
 def dashboard() -> rx.Component:
     return rx.vstack(

@@ -2,8 +2,9 @@
 
 import reflex as rx
 from rxconfig import config
-from login_test.pages import login, signup, pricing_page
-from login_test.state import AppState
+from ercas_saas.pages import login, signup, pricing_page
+from ercas_saas.state import AppState
+
 
 def index() -> rx.Component:
     # Welcome Page (Index)
@@ -39,6 +40,8 @@ def index() -> rx.Component:
         )
     )
 
+
+# Logout Route
 @rx.page(route="/logout", on_load=AppState.logout)
 def logout() -> rx.Component:
     return rx.container("Logged out")
