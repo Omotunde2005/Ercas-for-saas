@@ -76,6 +76,7 @@ def sidebar() -> rx.Component:
         padding="1em"
     )
 
+@rx.page(route="/dashboard", on_load=AppState.check_auth)
 def dashboard() -> rx.Component:
     return rx.vstack(
         sidebar(),

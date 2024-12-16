@@ -1,5 +1,5 @@
 from sqlmodel import Field, Relationship
-from typing import Optional
+from typing import Optional, List
 import datetime
 import sqlalchemy
 
@@ -20,7 +20,6 @@ class User(rx.Model, table=True):
         )
     )
     updated_at: datetime.datetime = Field(
-        default=None,
         sa_column=sqlalchemy.Column(
             "updated_at",
             sqlalchemy.DateTime(timezone=True),
@@ -29,7 +28,7 @@ class User(rx.Model, table=True):
     )
 
     # One-to-one relationship with the Subscription table
-    subscription: Optional["Subscription"] = Relationship(back_populates="user")
+    subscriptions: List["Subscription"] = Relationship(back_populates="user")
 
 
 
@@ -56,7 +55,7 @@ class Subscription(rx.Model, table=True):
         )
     )
 
-    is_active: bool = Field(nullable=False, default=False)
+    ref_number: str = Field(nullable=False)
 
-    user: Optional[User] = Relationship(back_populates="subscription")
-    user_id: int = Field(foreign_key="user.id", unique=True)
+    user: Optional[User] = Relationship(back_populates="subscriptions")
+    user_id: int = Field(foreign_key="user.id")

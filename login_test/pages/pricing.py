@@ -1,5 +1,6 @@
 import reflex as rx
 from login_test.state import AppState
+from login_test.components import popover
 
 def feature_item(text: str) -> rx.Component:
     return rx.hstack(
@@ -46,7 +47,7 @@ enterprise_plan_features_list = [
 
 
 
-def pricing_card(plan, description, price, features_list) -> rx.Component:
+def pricing_card(plan, description, price, features_list, usd_amount: int, ngn_amount: int) -> rx.Component:
     return rx.vstack(
         rx.vstack(
             rx.text(plan, weight="bold", size="6"),
@@ -78,13 +79,29 @@ def pricing_card(plan, description, price, features_list) -> rx.Component:
             spacing="6",
         ),
         features(features_list),
-        rx.button(
-            "Get started",
-            size="3",
-            variant="solid",
-            width="100%",
-            color_scheme="blue",
-            on_click=AppState.handle_payment
+        rx.cond(
+            AppState.logged_in,
+            popover(
+                rx.button(
+                    "Pay",
+                    size="3",
+                    variant="solid",
+                    width="100%",
+                    color_scheme="blue"
+                ),
+                usd_amount,
+                ngn_amount,
+                plan
+            ),
+            rx.button(
+                "Get started",
+                size="3",
+                variant="solid",
+                width="100%",
+                color_scheme="blue",
+                on_click=rx.redirect("/register")
+            ),
+
         ),
         spacing="6",
         border=f"1.5px solid {rx.color('gray', 5)}",
@@ -105,9 +122,9 @@ def pricing_page() -> rx.Component:
             margin_bottom="10px"
         ),
         rx.grid(
-            pricing_card("Free", "Ideal choice for personal use & for your next project.", "$0", beginner_plan_features_list),
-            pricing_card("Starter", "Perfect for small teams", "$20", starter_plan_features_list),
-            pricing_card("Enterprise", "Perfect for large teams with more needs", "$50", enterprise_plan_features_list),
+            pricing_card("Free", "Ideal choice for personal use & for your next project.", "$0", beginner_plan_features_list, 100, 100),
+            pricing_card("Starter", "Perfect for small teams", "$20", starter_plan_features_list, 100, 100),
+            pricing_card("Enterprise", "Perfect for large teams with more needs", "$50", enterprise_plan_features_list, 100, 100),
             width="100%",
             spacing="4",
             columns=rx.breakpoints(initial="1", sm="1", md="3", lg="3"),
@@ -115,12 +132,14 @@ def pricing_page() -> rx.Component:
         )
     )
 
+@rx.page(route="/verify/payment", on_load=AppState.verify_payment)
 def redirect_page() -> rx.Component:
-    rx.container(
-        rx.vstack(
-            rx.icon(),
-            "Your payment has been verified",
-            rx.button("Proceed to dashboard"),
-            align="center"
-        )
+    return rx.container(
+        rx.hstack(
+            rx.heading("Redirecting to dashboard", size="5"),
+            rx.spinner(size="3"),
+            spacing="5",
+            justify="center",
+            min_height="85vh",
+        ),
     )

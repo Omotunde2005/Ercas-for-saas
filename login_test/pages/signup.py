@@ -5,8 +5,8 @@ from login_test.state import AuthState
 
 
 def signup() -> rx.Component:
-    rx.container(
-        rx.center(
+    return rx.container(
+        rx.form(
             rx.card(
                 rx.vstack(
                     rx.center(
@@ -38,10 +38,10 @@ def signup() -> rx.Component:
                         rx.input(
                             rx.input.slot(rx.icon("blend")),
                             placeholder="user@gmail.com",
-                            on_blur=AuthState.set_email,
                             type="email",
                             size="3",
                             width="100%",
+                            name="email"
                         ),
                         justify="start",
                         spacing="2",
@@ -58,10 +58,10 @@ def signup() -> rx.Component:
                         rx.input(
                             rx.input.slot(rx.icon("user")),
                             placeholder="Enter your username",
-                            on_blur=AuthState.set_username,
                             type="text",
                             size="3",
                             width="100%",
+                            name="username"
                         ),
                         justify="start",
                         spacing="2",
@@ -79,10 +79,10 @@ def signup() -> rx.Component:
                         rx.input(
                             rx.input.slot(rx.icon("lock")),
                             placeholder="Enter your password",
-                            on_blur=AuthState.set_password,
                             type="password",
                             size="3",
                             width="100%",
+                            name="password"
                         ),
                         justify="start",
                         spacing="2",
@@ -96,7 +96,7 @@ def signup() -> rx.Component:
                         ),
                         width="100%",
                     ),
-                    rx.button("Register", size="3", width="100%", on_click=AuthState.signup),
+                    rx.button("Register", size="3", width="100%", type="submit"),
                     rx.center(
                         rx.text("Already registered?", size="3"),
                         rx.link("Sign in", href="/login", size="3"),
@@ -111,7 +111,7 @@ def signup() -> rx.Component:
                 max_width="28em",
                 size="4",
                 width="100%",
-            )
-        ),
-        padding="10px"
+            ),
+            on_submit=AuthState.signup
+        )
     )
