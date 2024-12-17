@@ -13,7 +13,7 @@ with reflex.dev - A Python framework for building full stacks app in Python. EFS
 
 
 ### How to get started?
-Check out this [tutorial](link) to see how to use this plugin
+Check out this [tutorial](https://dev.to/emiloju/building-saas-faster-with-ercas-for-saas-a-template-for-indie-hackers-200h) to see how to use this plugin
 
 
 ### Why should you care?
